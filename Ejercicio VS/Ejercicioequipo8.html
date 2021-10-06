@@ -1,0 +1,33 @@
+<script>
+// Imprimir los numeros del 0 al 200 en una suceccion de 9 en 9 y al final sumar los resultados
+var suma = 0;
+for(var i = 0; i <= 200; i++){
+    if(i % 9 == 0){
+            console.log(i);
+            suma += i;    
+    }
+}
+console.log("La suma es: " + suma);
+//Comprobar si el usurario tiene la edad para concucir y tome un auto
+var edad = prompt("Cual es tu edad?:");
+if(edad >= 18){
+    var coche = prompt("Elige un coche: \n Coche 1 \n Coche 2 \n Coche 3");
+    var coches = {
+        "1":{
+            "marca":"Mercedes Benz",
+            "color":"Negro"
+        },
+        "2":{
+            "marca":"Volkswagen",
+            "color":"Blanco"
+        },
+        "3":{
+            "marca":"BMW",
+            "color":"Gris"
+        }
+    }
+    console.log("Su Coche es: " + coches[coche]["marca"]+" "+coches[coche]["color"]);
+}else{
+    console.log("No tienes la edad para conducir");
+}
+</script>
