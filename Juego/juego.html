@@ -1,0 +1,50 @@
+<script>
+    var color = ["verde","azul","rojo","amarillo"];
+    var personas = ["persona","persona1","persona2","persona3","persona4","persona5"];
+    var transporte = ["coche","burro","avion","lancha"];
+    var donde = ["la casa","el basurero","la iglesia"];
+    var i,t,d,edad,hijos;
+
+    var nombres = prompt("Elige un color: \n" + color);
+
+    switch(nombres){
+        case 'verde':
+            casar();
+            console.log("Te vas a casar con " + personas[i] + " en " + donde[d]);
+            var numero = prompt("Elige un numero: ");
+            veiculo();
+            console.log("y se van a ir en " + transporte[t] + " a la edad de " + edad + " y tendran " + hijos + " hijos");
+        break;
+        case 'azul':
+            casar();
+            console.log("Te vas a casar con " + personas[i] + " en " + donde[d]);
+            numero = prompt("Elige un numero: ");
+            veiculo();
+            console.log("y se van a ir en " + transporte[t] + " a la edad de " + edad + " y tendran " + hijos + " hijos");
+        break;
+        case 'rojo':
+            casar();
+            console.log("Te vas a casar con " + personas[i] + " en " + donde[d]);
+            numero = prompt("Elige un numero: ");
+            veiculo();
+            console.log("y se van a ir en " + transporte[t] + " a la edad de " + edad + " y tendran " + hijos + " hijos");
+        break;
+        case 'amarillo':
+            casar();
+            console.log("Te vas a casar con " + personas[i] + " en " + donde[d]);
+            numero = prompt("Elige un numero: ");
+            veiculo();
+            console.log("y se van a ir en " + transporte[t] + " a la edad de " + edad + " y tendran " + hijos + " hijos");
+        break;
+    }
+    
+    function casar(){
+        i=Math.floor(Math.random() * personas.length);
+        d = Math.floor(Math.random() * donde.length);
+    }
+    function veiculo(){
+        t = Math.floor(Math.random() * transporte.length);
+        edad = Math.floor(Math.random() * (65 - 18 + 1) + 18);
+        hijos = Math.floor(Math.random() * (100 - 0 + 1) + 0);
+    }
+</script>
