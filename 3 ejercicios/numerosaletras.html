@@ -1,0 +1,54 @@
+<script>
+    var numero_letra = ["cero","uno","dos","tres","cuatro","cinco","seis","siete","ocho","nueve"];
+    var ingresa = prompt("Ingresa los valores a cambiar: ");
+    
+    console.log(elegir());
+
+    function elegir(){
+        for(let i = 0; i <= 9; i++){
+            if(ingresa[0] == i){
+                return numeros();
+            }
+        }
+        return letras();
+    }
+    function letras(){
+        let almacena = "";
+        let separar = [];
+        let posicion = 0;
+        let contador = 0;
+        for(let i = 0; i < ingresa.length; i++){
+            if(ingresa[i] == " "){
+                separar[contador]="";
+                for(let j = posicion; j < i; j++){
+                    separar[contador] += ingresa[j];
+                }
+                contador++;
+                posicion = (i + 1);
+            }
+        }
+        separar[contador]="";
+        for(let i = posicion; i < ingresa.length; i++){
+            separar[contador] += ingresa[i];
+        }
+        for(let i = 0; i < separar.length; i++){
+            for(let j = 0; j < numero_letra.length; j++){
+                if(separar[i] == numero_letra[j]){
+                    almacena += j;
+                }
+            }
+        }
+        return almacena;
+    }
+    function numeros(){
+        let alamcena = "";
+        for(let i = 0; i < ingresa.length; i++){
+            for(let j = 0; j <= 9; j++){
+                if(ingresa[i] == j){
+                    alamcena += numero_letra[j] + " ";
+                }
+            }
+        }
+        return alamcena;
+    }
+</script>

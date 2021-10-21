@@ -1,0 +1,35 @@
+<script>
+    var datos = [];
+    var participantes = "";
+    var no_participantes = parseInt(prompt("Ingresa el numero de participantes "));
+    for(var i = 0; i < no_participantes; i++){
+        var nombres = prompt("Ingresa el nombre " + (i + 1));
+        var direccion = prompt("Ingresa la direccion " + (i + 1));
+        datos[i] = nombres + " - " + direccion;
+    }
+    var num_rifa = [];
+
+    num_ale();
+
+    function num_ale(){
+        let repetido;
+        let contador = 0;
+        do{
+        let numero = Math.floor(Math.random() * no_participantes);
+            repetido = false;
+            for(let i = 0; i < num_rifa.length; i++){
+                if(numero == num_rifa[i]){
+                    repetido = true;
+                }
+            }
+            if(repetido == false){
+                num_rifa[contador] = numero;
+                contador++;
+            }
+        }while(repetido == true || contador < 3);
+        
+        alert("Se descarto el participante: " + datos[num_rifa[0]]);
+        alert("Se descarto el participante: " + datos[num_rifa[1]]);
+        alert("Gano el participante: " + datos[num_rifa[2]]);
+    }
+</script>
