@@ -5,41 +5,41 @@
 	// Almacenar alumnos
 	var alumnos=[];
 	var generos=["Hombre","Mujer"];
-	alumnos[0]=["Julio","456045","2121IS","Hombre",10];
-	alumnos[1]=["José","55040","2121IS","Hombre",7];
-	alumnos[2]=["María","4503453","2131IS","Mujer",6];
-	alumnos[3]=["Marco","45045","2131IS","Hombre",7];
-	// var numero_alumnos=parseInt(prompt("Número de alumnos a almacenar"));
-	// for(let a=0; a<numero_alumnos; a++){
-	// 	alumnos[a]=[];
-	// 	do{
-	// 		alumnos[a][0]=prompt("Nombre "+(a+1))??"";
-	// 	}while(alumnos[a][0]=="");
-	// 	do{
-	// 		alumnos[a][1]=prompt("Mátricula "+(a+1))??"";
-	// 	}while(alumnos[a][1]=="");
-	// 	do{
-	// 		alumnos[a][2]=prompt("Grupo "+(a+1))??"";
-	// 	}while(alumnos[a][2]=="");
-	// 	do{
-	// 		alumnos[a][3]=prompt("Sexo ("+generos+") "+(a+1))??"";
-	// 		alumnos[a][3]=(alumnos[a][3]==generos[0] || alumnos[a][3]==generos[1])?alumnos[a][3]:"";
-	// 	}while(alumnos[a][3]=="");
-	// 	do{
-	// 		alumnos[a][4]=prompt("Calificación "+(a+1))??"";
-	// 	}while(alumnos[a][4]=="");
-	// }
+	// alumnos[0]=["Julio","456045","2121IS","Hombre",10];
+	// alumnos[1]=["José","55040","2121IS","Hombre",7];
+	// alumnos[2]=["María","4503453","2131IS","Mujer",6];
+	// alumnos[3]=["Marco","45045","2131IS","Hombre",7];
+	var numero_alumnos=parseInt(prompt("Número de alumnos a almacenar"));
+	for(let a=0; a<numero_alumnos; a++){
+		alumnos[a]=[];
+		do{
+			alumnos[a][0]=prompt("Nombre "+(a+1))??"";
+		}while(alumnos[a][0]=="");
+		do{
+			alumnos[a][1]=prompt("Mátricula "+(a+1))??"";
+		}while(alumnos[a][1]=="");
+		do{
+			alumnos[a][2]=prompt("Grupo "+(a+1))??"";
+		}while(alumnos[a][2]=="" || alumnos[a][2]=="Todos");
+		do{
+			alumnos[a][3]=prompt("Sexo ("+generos+") "+(a+1))??"";
+			alumnos[a][3]=(alumnos[a][3]==generos[0] || alumnos[a][3]==generos[1])?alumnos[a][3]:"";
+		}while(alumnos[a][3]=="");
+		do{
+			alumnos[a][4]=prompt("Calificación "+(a+1))??"";
+		}while(alumnos[a][4]=="");
+	}
 	console.log(alumnos);
 
 	// Menú
 	var opcion;
 	var grupo_actual="Todos";
 	do{
-		opcion=parseInt(prompt("Alumnos ( "+alumnos.length+" )"+
+		opcion=parseInt(prompt("Alumnos ( "+alumnos.length+" ) - Grupo actual: ( "+grupo_actual+" )"+
 								"\n\n1.- Cantidad de alumnos"+
 								"\n2.- Alumnos por genero"+
 								"\n3.- Media de calificaciones"+
-								"\n4.- Alumno en especifico (alumno, mátricula)"+
+								"\n4.- Alumno en específico (alumno, mátricula)"+
 								"\n5.- Conjunto de alumnos"+
 								"\n6.- Información por grupo ( "+grupo_actual+" )"+
 								"\n0.- Salir"));
@@ -103,6 +103,7 @@
 	}
 
 	function buscar_alumno(busqueda,alumnos){
+		busqueda??="";
 		for(let a in alumnos){
 			if(alumnos[a][0]==busqueda || alumnos[a][1]==busqueda){
 				let datos_alumno="";
