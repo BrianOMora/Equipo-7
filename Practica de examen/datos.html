@@ -2,25 +2,35 @@
 
 <script>
 
-	// Almacenar alumnos
+	// Creamos arreglos uno para almacenar a los alumnos y su información; otro para los generos disponibles,
+	// que deberaán ser iguales para así saber con exactitud cuantos hombre y mujer hay.
+	// Después creamos una variable que almacenara la cantidad de alumnos que ingreserá.
 	var alumnos=[];
+	// Arreglos de prueba
+	alumnos[0]=["Julio","456045","2121IS","Hombre",10];
+	alumnos[1]=["José","55040","2121IS","Hombre",7];
+	alumnos[2]=["María","4503453","2131IS","Mujer",6];
+	alumnos[3]=["Marco","45045","2131IS","Hombre",7];
 	var generos=["Hombre","Mujer"];
-	// alumnos[0]=["Julio","456045","2121IS","Hombre",10];
-	// alumnos[1]=["José","55040","2121IS","Hombre",7];
-	// alumnos[2]=["María","4503453","2131IS","Mujer",6];
-	// alumnos[3]=["Marco","45045","2131IS","Hombre",7];
 	var numero_alumnos=parseInt(prompt("Número de alumnos a almacenar"));
+	// Posteriormente se creará un for para pider los datos de los alumnos.
+	// Se incluirá un do while que se encargá de repetir si los datos que ingresa son null (cancelar) o están vacío (no digita los datos)
+	// El ( ?? ) compara si el usuario le dio a cancelar o cerrar ventana (dato nulo) y declara la variable como vacía,
+	// y si la variable esta vacía el do while se petira hasta que se digite algún texto.
+	// En el apartado del genero aparte de compara si esta vacío com para que sea igual al algún genero en especifíco (Hombre o Mujer).
+	// En el grupo compara que no sea igual a "Todos", ya que el programa tiene la opción de mostrar los datos por grupom y la palabra
+	// "Todos" indica que mostrará la información, basandose en todos los grupo, de lo contrario en grupo en especifíco.
 	for(let a=0; a<numero_alumnos; a++){
 		alumnos[a]=[];
 		do{
-			alumnos[a][0]=prompt("Nombre "+(a+1))??"";
-		}while(alumnos[a][0]=="");
+			alumnos[a][0]=prompt("Nombre "+(a+1))??""; // Se aunmentar uno para que mueste alumno 1, y no alumno 0, ya que el for inicia en 0.
+		}while(alumnos[a][0]==""); // Compará si esta vacío el dato que digitó.
 		do{
-			alumnos[a][1]=prompt("Mátricula "+(a+1))??"";
+			alumnos[a][1]=prompt("Mátricula "+(a+1))??""; // El (??) compara si cerro la ventana o dio en cancelar, si es así retornará un vacío.
 		}while(alumnos[a][1]=="");
 		do{
 			alumnos[a][2]=prompt("Grupo "+(a+1))??"";
-		}while(alumnos[a][2]=="" || alumnos[a][2]=="Todos");
+		}while(alumnos[a][2]=="" || alumnos[a][2]=="Todos"); // Compara si esta vacío o si el igual a Todos
 		do{
 			alumnos[a][3]=prompt("Sexo ("+generos+") "+(a+1))??"";
 			alumnos[a][3]=(alumnos[a][3]==generos[0] || alumnos[a][3]==generos[1])?alumnos[a][3]:"";
@@ -31,10 +41,13 @@
 	}
 	console.log(alumnos);
 
-	// Menú
+	// Se crea una variable para almacenar la opción a mostrar del menú. Y otra que almacenará el grupo actual. Si es "Todos", mostrará
+	// la información de todos los grupos.
 	var opcion;
 	var grupo_actual="Todos";
+	// Se hace en un do while para que se ejecute por primera vez y despues compara si se debe ejecutar.
 	do{
+		// Muestra el menú para que elegia una opción
 		opcion=parseInt(prompt("Alumnos ( "+alumnos.length+" ) - Grupo actual: ( "+grupo_actual+" )"+
 								"\n\n1.- Cantidad de alumnos"+
 								"\n2.- Alumnos por genero"+
@@ -43,27 +56,33 @@
 								"\n5.- Conjunto de alumnos"+
 								"\n6.- Información por grupo ( "+grupo_actual+" )"+
 								"\n0.- Salir"));
+		// Aquí hay switch que se encargará de elegir la intrucción a ejecutarse. Y mostrará la cantidad total de alumnos y el grupo actual elegido.
+		// Si no existe la opción devolverá una alerta que dira "Opció no válida".
 		switch(opcion){
 			case 0: alert("Adiós"); break;
 			case 1: alert("Grupo actual: "+grupo_actual+"\n\n"+cantidad_alumnos(alumnos)); break;
 			case 2: alert("Grupo actual: "+grupo_actual+"\n\n"+cantidad_alumnos_genero(alumnos)); break;
 			case 3: alert("Grupo actual: "+grupo_actual+"\n\n"+media_calificaciones(alumnos)); break;
-			case 4: alert("Grupo actual: "+grupo_actual+"\n\n"+buscar_alumno(prompt("Buscar alumnos (nombre/mátricula)")??"",alumnos)); break;
+			case 4: alert("Grupo actual: "+grupo_actual+"\n\n"+buscar_alumno(prompt("Buscar alumnos (nombre/mátricula)"),alumnos)); break;
 			case 5: alert("Grupo actual: "+grupo_actual+"\n\n"+conjunto_alumnos(elegir_alumnos(alumnos),alumnos)); break;
 			case 6: elegir_grupo(alumnos); break;
 			default: alert("Opción no válida"); break;
 		}
+		// Comparará si el bucle se repite, solo se repetira si es diferente a 0 (la opción de salir).
 	}while(opcion!=0);
 
-	// Funciones
-
+	// Obtiene la cantida de alumnos
+	// Entrada: ([0]["Juan","104150","2121","Hombre",7])
+	// Si el grupo es "Todo" Salida: 1
+	// Si es un grupo diferente a "Todos" hace un conteo de los que pertencen a dicho grupo.
 	function cantidad_alumnos(alumnos){
+		// Compara si el grupo elegido es "Todos"
 		if(grupo_actual=="Todos"){
 			return "Cantidad de alumnos: "+alumnos.length;
 		}else{
-			let cantidad=0;
-			for(let a in alumnos){
-				if(alumnos[a][2]==grupo_actual){
+			let cantidad=0; // Almacena la cantidad de alumnos
+			for(let a=0; a<alumnos.length; a++){
+				if(alumnos[a][2]==grupo_actual){ // Compara si pertenece al grupo y aunmenta la cantidad.
 					cantidad++;
 				}
 			}
@@ -71,12 +90,17 @@
 		}
 	}
 
+	// Obtiene la cantidad
+	// Entrada: ([0]["Juan","104150","2121","Hombre",7],[1]["María","5042","2121","Mujer",8])
+	// Salida: Hombres: 1 Mujeres: 1
 	function cantidad_alumnos_genero(alumnos){
 		let hombres=0, mujeres=0;
-		for(let a in alumnos){
+		for(let a=0; a<alumnos.length; a++){
 			if(grupo_actual=="Todos"){
+				// Compara si el sexo es igual al primero (Hombre) aumenta 1 a la variable hombres y si no aunmenta 1 a la variable mujeres
 				(alumnos[a][3]==generos[0])?hombres++:mujeres++;
 			}else{
+				// Compara si pertece a ul grupo
 				if(alumnos[a][2]==grupo_actual){
 					(alumnos[a][3]==generos[0])?hombres++:mujeres++;
 				}
@@ -85,13 +109,17 @@
 		return "Hombres: "+hombres+"\nMujeres: "+mujeres;
 	}
 
+	// Obtiene la media de las calificiones
+	// Entrada: ([0]["Juan","104150","2121","Hombre",7],[1]["María","5042","2121","Mujer",8])
+	// Si el grupo es "Todo" Salida: Media de calificaciones: 7.2
+	// Si es un grupo diferente a "Todos" hace la media de calificaiones que pertencen a dicho grupo.
 	function media_calificaciones(alumnos){
 		let suma=0;
 		let dividir=0;
-		for(let a in alumnos){
+		for(let a=0; a<alumnos.length; a++){
 			if(grupo_actual=="Todos"){
-				suma+=parseFloat(alumnos[a][4]);
-				dividir++;
+				suma+=parseFloat(alumnos[a][4]); // parseFloat() -> Convierte el contenido a número decimal
+				dividir++; // Aumenta la contidad de alumnos para porteriormente dividir la suma y obtener la media
 			}else{
 				if(alumnos[a][2]==grupo_actual){
 					suma+=parseFloat(alumnos[a][4]);
@@ -102,34 +130,55 @@
 		return "Media de calificaciones: "+suma/dividir;
 	}
 
+	// Busca un alumno que concida con su nombre o mátricula
+	// Entrada: // Entrada: (Juan , [0]["Juan","104150","2121","Hombre",7],[1]["María","5042","2121","Mujer",8])
+	// Salida
+	// Nombre: Juan
+	// Mátricula: 104150
+	// Grupo: 2121
+	// Genero: Hombre
+	// Calificación: 7
 	function buscar_alumno(busqueda,alumnos){
-		busqueda??="";
-		for(let a in alumnos){
-			if(alumnos[a][0]==busqueda || alumnos[a][1]==busqueda){
-				let datos_alumno="";
+		for(let a=0; a<alumnos.length; a++){
+			if(alumnos[a][0]==busqueda || alumnos[a][1]==busqueda){ // Compara si la busqueda es igual al nombre o mátricula.
+				let datos_alumno=""; // Iinicia una variable para almacenar los datos del usuario.
 				datos_alumno+="Nombre: "+alumnos[a][0];
 				datos_alumno+="\nMátricula: "+alumnos[a][1];
 				datos_alumno+="\nGrupo: "+alumnos[a][2];
 				datos_alumno+="\nGenero: "+alumnos[a][3];
 				datos_alumno+="\nCalificación: "+alumnos[a][4];
-				if(alumnos[a][2]==grupo_actual || grupo_actual=="Todos"){
+				if(alumnos[a][2]==grupo_actual || grupo_actual=="Todos"){ // Compara si el alumno que se encontró pertenece al grupo elegido
 					return datos_alumno;
 				}else{
+					// No pertence al grupo el alumno no existe en dicho grupo.
 					return "No existe el alumno ( "+busqueda+" ) en el grupo ( "+grupo_actual+" )";
 				}
 			}
 		}
+		// Si no encuentra alumno, muestra que el alumno no existe
 		return "No existe el alumno ( "+busqueda+" )";
 	}
 
+	// Muestra información de uno o varios alumnos en específico
+	// Entrada: (1,2 , [0]["Juan","104150","2121","Hombre",7],[1]["María","5042","2121","Mujer",8])
+	// Salida
+	// Alumnos: Juan, María, 
+	// Cantidad de alumnos: 2
+	// Hombres: 1
+	// Mujeres: 1
+	// Media de calificaciones: 7.2
 	function conjunto_alumnos(alumnos_elegidos,alumnos){
+		// Llama una función para separa el texto digita po comas ( , ) y devuelve el contenido en un arreglo
 		let num_alumnos=separar_comas(alumnos_elegidos);
+		// Crea un arreglo para almacenar los alumnos que quiere ver
 		let nuevos_alumnos=[];
+		// Almacena los nombre de los alumno su que se quieren ver
 		let nombres="";
-		for(let a in num_alumnos){
-			let posicion=num_alumnos[a]-1;
-			if(num_alumnos[a]<=alumnos.length && num_alumnos[a]!=0){
-				if(grupo_actual==alumnos[posicion][2] || grupo_actual=="Todos"){
+		for(let a=0; a<num_alumnos.length; a++){
+			let posicion=num_alumnos[a]-1; // Almacena el almumno a mostrar, restando 1, porque el arreglo empiesa de 0.
+			if(num_alumnos[a]<=alumnos.length && num_alumnos[a]!=0){ // Compara si el alumno esta dentro de la cantidad de alumnos.
+				if(grupo_actual==alumnos[posicion][2] || grupo_actual=="Todos"){ // Compara si pertence al grupo actual
+					// Almacena los datos de los alumnos en el nuevo arreglo
 					nuevos_alumnos[a]=[
 						alumnos[posicion][0],
 						alumnos[posicion][1],
@@ -137,13 +186,16 @@
 						alumnos[posicion][3],
 						alumnos[posicion][4]
 					];
-					nombres+=nuevos_alumnos[a][0]+", ";
+					nombres+=nuevos_alumnos[a][0]+", "; // Almacena el nombre de alumno.
 				}
 			}
 		}
+		// Compara si esta vacio nombre, eso quiere decir que no hay alumno por lo tando los alumno que digito no existen
+		// o no pertencen al grupo elegido.
 		if(nombres==""){
 			return "No existe el alumno";
 		}else{
+			// Devulve los datos de las opciones del menú (1,2,3) de los alumnos elegidos.
 			return "Alumnos: "+nombres+
 				"\n"+cantidad_alumnos(nuevos_alumnos)+
 				"\n"+cantidad_alumnos_genero(nuevos_alumnos)+
@@ -151,49 +203,70 @@
 		}
 	}
 
-	// Otras funciones
-
+	// Elige un grupo en específico para que las opciones del menú muestren los datos según el grupo elegido
+	// Entrada: (1,2 , [0]["Juan","104150","2121","Hombre",7],[1]["María","5042","2121","Mujer",8])
+	// Salida
+	// Elegir separado por comas ( 1,3,5 )
+	// 1.- Juan
+	// 2.- María
 	function elegir_grupo(alumnos){
-		let lista_grupos=arreglo_grupos(alumnos);
-		let lista="";
+		let lista_grupos=arreglo_grupos(alumnos); // Llama una función que obtiene todos los grupo, sin repetirse. y devuelve un arreglo
+		let lista=""; // Crea una variable para alamcenar y mostrar en forma de menú los grupos.
 		for(let a=0; a<lista_grupos.length; a++){
-			lista+="\n"+(parseInt(a)+1)+".- "+lista_grupos[a];
+			lista+="\n"+(a+1)+".- "+lista_grupos[a]; // Añade a la lsita el grupo.
 		}
-		lista+="\n0.- Todos";
-		let num_grupo_elegido=prompt("Elegir un grupo\n"+lista);
-		if(num_grupo_elegido==0){
+		lista+="\n0.- Todos"; // Por último añade la opción "Todos", por si quiere elegir todos los grupo.
+		let num_grupo_elegido=parseInt(prompt("Elegir un grupo\n"+lista)); // Piede que elegi un grupo
+		if(num_grupo_elegido==0){ // Compara si elegio el grupo "Todos"
 			grupo_actual="Todos";
 		}else{
-			grupo_actual=lista_grupos[(num_grupo_elegido-1)]??"Todos";
+			grupo_actual=lista_grupos[(num_grupo_elegido-1)]??"Todos"; // Almacena el grupo que elegio; pero si no existe almacena "Todos"
 		}
 	}
 
+	// Elige los alumnos que quiere ver
+	// Entrada: 1,2
+	// Salida
+	// Elige un alumno
+	// 1.- Juan
+	// 2.- María
 	function elegir_alumnos(alumnos){
-		return prompt("Elegir separado por comas ( 1,3,5 )\n\n"+lista_alumnos(alumnos))??"";
+		return prompt("Elegir separado por comas ( 1,3,5 )\n\n"+lista_alumnos(alumnos)); // Llama un función que lista los alumno que hay.
 	}
 
+	// Lista en un arreglo los alumnos que hay
+	// Entrada: (1,2 , [0]["Juan","104150","2121","Hombre",7],[1]["María","5042","2121","Mujer",8])
+	// Salida
+	// 1.- Juan
+	// 2.- María
 	function lista_alumnos(alumnos){
 		let lista="";
-		for(let a in alumnos){
-			if(grupo_actual=="Todos"){
-				lista+=(parseInt(a)+1)+".- "+alumnos[a][0]+"\n";
+		for(let a=0; a<alumnos.length; a++){
+			if(grupo_actual=="Todos"){ // Verifica si debe enlistar los alumnos de un grupo en especifíco o todos.
+				lista+=(a+1)+".- "+alumnos[a][0]+"\n";
 			}else{
 				if(alumnos[a][2]==grupo_actual){
-					lista+=(parseInt(a)+1)+".- "+alumnos[a][0]+"\n";
+					lista+=(a+1)+".- "+alumnos[a][0]+"\n";
 				}
 			}
 		}
 		return lista;
 	}
 
+	// Separa todos los grupos en un solo arreglo y los devulve sin repetir el grupo
+	// Entrada: (1,2 , [0]["Juan","104150","2121","Hombre",7],[1]["María","5042","2121","Mujer",8])
+	// Salida: [2121]
 	function arreglo_grupos(alumnos){ // 2121, 3131, 3131, 2121, 2151, 2121, 3131, 5151
 		let lista_grupos=[];
-		for(let a in alumnos){
-			lista_grupos[a]=alumnos[a][2];
+		for(let a=0; a<alumnos.length; a++){
+			lista_grupos[a]=alumnos[a][2]; // Agrega el grupo al arreglo
 		}
-		return arreglo_sin_repetir(lista_grupos);
+		return arreglo_sin_repetir(lista_grupos); // Llama un función que quita los datos que se repiten en el arreglo.
 	}
 
+	// Elimina los datos que se repiden en el arreglo
+	// Entrada: ([2121,2121,3121,2121,5121,3121])
+	// Salida: [2121,2131,5121]
 	function arreglo_sin_repetir(arreglo){
 		let arreglo_final=[];
 		let contador=0;
@@ -201,15 +274,19 @@
 		for(let a=0; a<logitud_arreglo; a++){
 			let encontrado=false;
 			for(let b=0; b<logitud_arreglo; b++){
+				// Compara si el datos de condice con los demas,no esta en la misma posición y no esta vacío.
 				if(arreglo[a]==arreglo[b] && arreglo[a]!="" && a!=b){
 					if(encontrado==false){
+						// ALmacena el dato repetido y no vulve a pasar, si encuentra otro
 						arreglo_final[contador]=arreglo[a];
 						contador++;
 						encontrado=true;
 					}
+					// Vacía el dato repetido
 					arreglo[b]="";
 				}
 			}
+			// ALmacena el dato en caso de que no se repita
 			if(encontrado==false && arreglo[a]!=""){
 				arreglo_final[contador]=arreglo[a];
 				contador++;
@@ -218,24 +295,32 @@
 		return arreglo_final;
 	}
 
-	function separar_comas(texto){ // 2,4,6
+	// Separa datos por comas y los devuelve en un arreglo
+	// Entrada: 1,2,5,10
+	// Salida: [1,2,5,10]
+	function separar_comas(texto){
 		let arreglo=[];
 		let posicion=0;
 		let contador=0;
-		// if(texo==undefined){
+		// if(texo==undefined || text0==null){
 		// 	texto="";
-		// }
-		texto??="";
+		// }.
+		texto??=""; // Compra si el texto de entrada no existe o es nulo; si es así no pone como vacío
 		for(let a=0; a<texto.length; a++){
+			// Busca la coma caracter, por caracter.
 			if(texto[a]==","){
+				// Inicia el arreglo en vacío la que se va a concatenar en caso de que el dato mida más de 2 caracteres
 				arreglo[contador]="";
 				for(let b=posicion; b<a; b++){
 					arreglo[contador]+=texto[b];
 				}
+				// La poción la cambia por la posición en la que contro la coma más 1,
+				// para que seposición delante de la coma, y peda separar el siguiente
 				posicion=(a+1);
 				contador++;
 			}
 		}
+		// Añade un dato si no hay comas o si esta en el último dato del texto con comas
 		arreglo[contador]="";
 		for(let b=posicion; b<texto.length; b++){
 			arreglo[contador]+=texto[b];
